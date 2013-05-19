@@ -4,6 +4,7 @@ $(document).ready(function() {
 		var e, n, r, i;
 		t.sounds.tick.play();
 		if (t.current + 1 > t.exe.length) {
+			if ($("#timer").css("font-size")=="200px") $("#timer").css("font-size", "100px");
 			$("#timer").text("DONE");
 			$("#picture").hide();
 			$("#activity").hide();
