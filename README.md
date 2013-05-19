@@ -12,6 +12,7 @@ As I didn't create the actual software I did not add any payments or ads.
 
 TODO: 
 
+- Add a message and vibrate on switch 
 - Add a reminder service 
 - Add a nagging reminder service
 - Add FB integration to show your friends (more stimulating) 
