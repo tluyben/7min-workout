@@ -77,7 +77,7 @@ $(document).ready(function() {
 					this[sound].load()
 				}*/
 				for (sound in this) if (sound != "load") {
-					this[sound] = new Media("/assets/www/sounds/" + this[sound] +".mp3", onSuccess, onError);
+					this[sound] = new Media("/android_asset/www/sounds/" + this[sound] +".mp3", onSuccess, onError);
 
 				}
 			}
