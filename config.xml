@@ -5,8 +5,6 @@
         versionCode="1" 
         version   = "1.0.0">
 
-    <!-- versionCode is optional and Android only -->
-
     <name>7 Minute Workout</name>
 
     <description>
@@ -17,5 +15,12 @@
     <author href="https://va5.com/app-support" email="support@va5.com">
 	Tycho Luyben
     </author>
+    
+    <preference name="orientation" value="portrait" />
+    <preference name="fullscreen" value="true" />
+    <preference name="exit-on-suspend" value="false" />
+    <preference name="android-installLocation" value="auto" />
+
+    <icon src="icon.png" />
 
 </widget>
