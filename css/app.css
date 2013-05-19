@@ -7,6 +7,7 @@ body {
   -moz-transition: background-color 1000ms linear;
   -o-transition: background-color 1000ms linear;
   -ms-transition: background-color 1000ms linear;
+  -webkit-tap-highlight-color: rgba(0,0,0,0); 
   transition: background-color 1000ms linear;
   background-color: black;
   font-family: Arial;
@@ -129,10 +130,11 @@ body.rest {
   opacity: .4;
 }
 
-@media only screen and (min-device-width : 480px) and (max-device-width : 800px) {
+/*@media only screen and (min-device-width : 480px) and (max-device-width : 800px) {*/
     .start-screen h1 { font-size: 70px; line-height: 90px; }
     .start-screen h2 { font-size: 20px; }
     .start-screen .start-button { font-size:40px; line-height: 80px; }
     #timer {font-size: 200px; line-height:200px}
-    #activity {font-size:30px;}
-}
+    #activity {font-size:30px; line-height:70px; }
+    #next {font-size: 30px; }
+/*}*/

@@ -20,6 +20,7 @@
     <preference name="fullscreen" value="true" />
     <preference name="exit-on-suspend" value="false" />
     <preference name="android-installLocation" value="auto" />
+    <preference name="permissions" value="none"/>
 
     <icon src="icon57.png" />
 <icon src="ldpi.png" gap:platform="android" gap:density="ldpi" width="36" height="36"/>

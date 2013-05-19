@@ -16,3 +16,5 @@ TODO:
 - Add a nagging reminder service
 - Add FB integration to show your friends (more stimulating) 
 - Progress indicator working on phone
+- Get the sounds working and add in vibration (better when in public spaces)
+
