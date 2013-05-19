@@ -1,4 +1,7 @@
 function ga() {}
+
+document.addEventListener("deviceready",function() {
+
 $(document).ready(function() {
 	function ex() {
 		var e, n, r, i;
@@ -133,3 +136,4 @@ $(document).ready(function() {
 	})
 });
 
+}, false);
