@@ -10,12 +10,16 @@ I don't have internet in the places I work out and I will forget to take the web
 
 As I didn't create the actual software I did not add any payments or ads. 
 
+-----
+
+I am using Adobe Phonegap Build to build this app; you can try building it  yourself there as well.
+
 TODO: 
 
-- Add a message and vibrate on switch 
+- Add a visible message and vibrate on switch for when the sound is off
 - Add a reminder service 
 - Add a nagging reminder service
 - Add FB integration to show your friends (more stimulating) 
 - Progress indicator working on phone
-- Get the sounds working and add in vibration (better when in public spaces)
+- Add vibration when sound is off
 
