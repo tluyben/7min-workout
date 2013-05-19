@@ -15,4 +15,4 @@ TODO:
 - Add a reminder service 
 - Add a nagging reminder service
 - Add FB integration to show your friends (more stimulating) 
-
+- Progress indicator working on phone
