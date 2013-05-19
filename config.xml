@@ -21,6 +21,9 @@
     <preference name="exit-on-suspend" value="false" />
     <preference name="android-installLocation" value="auto" />
 
-    <icon src="icon.png" />
-
+    <icon src="icon57.png" />
+<icon src="ldpi.png" gap:platform="android" gap:density="ldpi" width="36" height="36"/>
+<icon src="mdpi.png" gap:platform="android" gap:density="mdpi" width="48" height="48"/>
+<icon src="hdpi.png" gap:platform="android" gap:density="hdpi" width="72" height="72"/>
+<icon src="xdpi.png" gap:platform="android" gap:density="xhdpi" width="96" height="96"/>
 </widget>
