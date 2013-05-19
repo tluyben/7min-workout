@@ -1,11 +1,19 @@
 function ga() {}
 
 document.addEventListener("deviceready",function() {
+   
+function onSuccess() {
+}
 
+function onError(error) {
+alert('code: '    + error.code    + '\n' + 
+                  'message: ' + error.message + '\n');
+}
 $(document).ready(function() {
 	function ex() {
 		var e, n, r, i;
 		t.sounds.tick.play();
+		
 		if (t.current + 1 > t.exe.length) {
 			if ($("#timer").css("font-size")=="200px") $("#timer").css("font-size", "100px");
 			$("#timer").text("DONE");
@@ -60,13 +68,17 @@ $(document).ready(function() {
 		rest: e.rest,
 		current: 0,
 		sounds: {
-			tick: "tick.wav",
-			done: "done.wav",
-			swit: "switch.wav",
+			tick: "tick",
+			done: "done",
+			swit: "switch",
 			init: function() {
-				for (sound in this) if (sound != "load") {
-					this[sound] = new Audio("sounds/" + this[sound]);
+				/*for (sound in this) if (sound != "load") {
+					this[sound] = new Audio("/assets/www/sounds/" + this[sound]);
 					this[sound].load()
+				}*/
+				for (sound in this) if (sound != "load") {
+					this[sound] = new Media("/assets/www/sounds/" + this[sound] +".mp3", onSuccess, onError);
+
 				}
 			}
 		},
