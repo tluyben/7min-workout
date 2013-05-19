@@ -1,0 +1,130 @@
+.right {
+  text-align: right;
+}
+/* App Styles */
+body {
+  -webkit-transition: background-color 1000ms linear;
+  -moz-transition: background-color 1000ms linear;
+  -o-transition: background-color 1000ms linear;
+  -ms-transition: background-color 1000ms linear;
+  transition: background-color 1000ms linear;
+  background-color: black;
+  font-family: Arial;
+  padding-top: 60px;
+}
+body.rest {
+  background-color: #069bbc;
+}
+.start-screen {
+  margin-top: 0px;
+  text-align: center;
+}
+.start-screen h1 {
+  font-size: 130px;
+  line-height: 130px;
+  text-align: center;
+  margin: 0;
+  text-transform: uppercase;
+  color: #ee1e1e;
+}
+.start-screen h2 {
+  color: #ffffff;
+  font-size: 40px;
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 40px;
+}
+.start-screen input {
+  border: none;
+  font-size: 40px;
+  line-height: 40px;
+  padding: 0;
+  text-align: center;
+  border-radius: 200px;
+  background: #f5ffd7;
+  color: black;
+  font-weight: bold;
+  width: 60px;
+  display: inline-block;
+  outline: none;
+  box-shadow: none;
+}
+.start-screen input:focus {
+  box-shadow: none;
+}
+.start-screen .start-button {
+  color: black;
+  background: #069bbc;
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+  font-size: 200px;
+  line-height: 250px;
+  border-radius: 200px;
+  padding: 30px 100px;
+}
+.start-screen .start-button a {
+  color: black;
+  text-decoration: none;
+}
+.madeby {
+  position: absolute;
+  color: white;
+  bottom: 10px;
+  right: 10px;
+}
+.madeby h5 {
+  margin: 0;
+  padding: 0;
+}
+.madeby h5 a {
+  color: #ee1e1e;
+}
+#timer {
+  -webkit-transition: color 1000ms linear;
+  -moz-transition: color 1000ms linear;
+  -o-transition: color 1000ms linear;
+  -ms-transition: color 1000ms linear;
+  transition: color 1000ms linear;
+  font-size: 400px;
+  line-height: 300px;
+  color: #ffffff;
+  font-weight: 800;
+  text-align: center;
+  position: relative;
+}
+.picture-holder {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  text-align: center;
+  z-index: 1000;
+}
+#picture {
+  width: 100%;
+  max-width: 450px;
+  z-index: 1000;
+}
+#timer.rest {
+  color: #f5ffd7;
+}
+#activity {
+  font-size: 80px;
+  font-weight: 800;
+  line-height: 140px;
+  text-align: center;
+  color: #48bdc6;
+  opacity: 1;
+  text-transform: uppercase;
+}
+#next {
+  font-size: 50px;
+  color: #f5ffd7;
+  text-align: center;
+  padding-top: 30px;
+}
+.ball-fade {
+  opacity: .4;
+}
