@@ -18,7 +18,7 @@
     
     <preference name="orientation" value="portrait" />
     <preference name="fullscreen" value="true" />
-    <preference name="exit-on-suspend" value="false" />
+    <preference name="exit-on-suspend" value="true" />
     <preference name="android-installLocation" value="auto" />
     <preference name="permissions" value="none"/>
     <preference name="show-splash-screen-spinner" value="true" />
