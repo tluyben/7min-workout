@@ -21,6 +21,9 @@
     <preference name="exit-on-suspend" value="false" />
     <preference name="android-installLocation" value="auto" />
     <preference name="permissions" value="none"/>
+    <preference name="show-splash-screen-spinner" value="true" />
+
+    <gap:splash src="splash.png" />
 
     <icon src="icon57.png" />
 <icon src="ldpi.png" gap:platform="android" gap:density="ldpi" width="36" height="36"/>
