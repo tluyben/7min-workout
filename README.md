@@ -12,16 +12,19 @@ As I didn't create the actual software I did not add any payments or ads.
 
 Download here from Google Play: https://play.google.com/store/apps/details?id=com.vafive.sevenminworkout
 
+New features; 
+- speech 
+- vibration
+- configurable sound / vibration
+
 -----
 
 I am using Adobe Phonegap Build to build this app; you can try building it  yourself there as well.
 
 TODO: 
 
-- Add a visible message and vibrate on switch for when the sound is off
 - Add a reminder service 
 - Add a nagging reminder service
 - Add FB integration to show your friends (more stimulating) 
 - Progress indicator working on phone
-- Add vibration when sound is off
 
