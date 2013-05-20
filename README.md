@@ -16,10 +16,12 @@ New features;
 - speech 
 - vibration
 - configurable sound / vibration
+- prevent the phone going to sleep 
 
 -----
 
-I am using Adobe Phonegap Build to build this app; you can try building it  yourself there as well.
+~~I am using Adobe Phonegap Build to build this app; you can try building it  yourself there as well.~~
+I use Eclipse to build now because some of the plugin (TTS) and sleep prevention. 
 
 TODO: 
 
