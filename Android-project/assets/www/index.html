@@ -13,7 +13,13 @@
  	    	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	    <link rel="apple-touch-icon" href="images/7min.png">
 	        <script type="text/javascript" charset="utf-8" src="js/cordova-2.7.0.js"></script>
-
+			<script type="text/javascript" charset="utf-8" src="js/tts.js"></script>
+			
+			<script src="js/jquery-1.9.1.min.js"></script>
+			<script>
+				loadedJS = false; 
+			</script>
+			<script type="text/javascript" src="js/app.js"></script>				
 </head>
 	<body>
 
@@ -30,6 +36,11 @@
 				<div class="start-button">
 					<a href="http://7-min.com/#" class="start">Start</a>
 				</div>
+				<div class="options">
+					<input type="checkbox" id="sounds" />Sounds 
+					<input type="checkbox" id="vibrate" />Vibrate 
+					<input type="checkbox" id="speech" />Speech 
+				</div>	
 			</div>
 		</div>
 		<div class="container-fluid app" style="display: none;">
@@ -64,7 +75,6 @@
 			<h5>
 			</h5>
 		</div>
-		<script src="js/jquery-1.9.1.min.js"></script>
-		<script type="text/javascript" src="js/app.js"></script>	
+		
 	
 </body></html>

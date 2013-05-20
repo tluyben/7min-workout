@@ -1,6 +1,11 @@
 function ga() {}
 
 document.addEventListener("deviceready",function() {
+if (loadedJS) return;
+
+   window.plugins.tts.startup(speechStart, function(){});
+   function speechStart() {
+      
    
 function onSuccess() {
 }
@@ -10,19 +15,42 @@ alert('code: '    + error.code    + '\n' +
                   'message: ' + error.message + '\n');
 }
 $(document).ready(function() {
+	var storage = window.localStorage;
+	
+	var soundsOn = (storage.getItem("sounds"))?(storage.getItem("sounds")=="true"?"true":"false"):"true"; 
+	var vibrateOn = (storage.getItem("vibrate"))?(storage.getItem("vibrate")=="true"?"true":"false"):"true"; 
+	var speechOn = (storage.getItem("speech"))?(storage.getItem("speech")=="true"?"true":"false"):"true"; 
+	
+	$('#sounds').attr('checked', soundsOn=="true");
+	$('#vibrate').attr('checked', vibrateOn=="true");
+	$('#speech').attr('checked', speechOn=="true");
+	
+	$('#sounds').change(function() {
+		soundsOn = $(this).is(":checked")?"true":"false";
+		storage.setItem("sounds", soundsOn);
+	});
+	$('#vibrate').change(function() {
+		vibrateOn = $(this).is(":checked")?"true":"false";
+		storage.setItem("vibrate", vibrateOn);
+	});
+	$('#speech').change(function() {
+		speechOn = $(this).is(":checked")?"true":"false";
+		storage.setItem("speech", speechOn);
+	});	
 	function ex() {
-		var e, n, r, i;
-		t.sounds.tick.play();
+		var e, n, r, i, oe;
+		if (soundsOn=="true") t.sounds.tick.play();
 		
 		if (t.current + 1 > t.exe.length) {
 			if ($("#timer").css("font-size")=="200px") $("#timer").css("font-size", "100px");
 			$("#timer").text("DONE");
+			if (speechOn == "true") window.plugins.tts.speak("You are done! Congratulations!", function() {}, function() {});
 			$("#picture").hide();
 			$("#activity").hide();
 			$("#balls").hide();
 			return !0
 		}
-		e = Math.round((t.duration - t.rest.time * t.exe.length) / t.exe.length);
+		oe = e = Math.round((t.duration - t.rest.time * t.exe.length) / t.exe.length);
 		n = Math.round(e / t.exe[t.current].split);
 		r = t.rest.time;
 		$("#picture").attr("src", "images/" + (t.current + 1) + ".png");
@@ -30,13 +58,28 @@ $(document).ready(function() {
 		$("#activity").text(t.exe[t.current].name);
 		i = window.setInterval(function() {
 			if (e > 1) {
+				if (oe == e) {
+					if (speechOn == "true") window.plugins.tts.speak("You are doing "+t.exe[t.current-1].name, function() {}, function() {});
+					if (vibrateOn=="true") navigator.notification.vibrate(1000);
+				}
+				
 				e--;
-				t.sounds.tick.play();
-				e == n + 1 && t.sounds.swit.play();
+				if (soundsOn=="true") t.sounds.tick.play();
+				if (e == n+1) {
+					if (soundsOn=="true") t.sounds.swit.play();
+					if (vibrateOn=="true") navigator.notification.vibrate(1000);
+				}
 				$("#timer .nums").text(e)
 			} else if (r > 1) {
 				r--;
-				r == 9 && t.sounds.done.play();
+				if (r == 9) {
+					if (soundsOn=="true") t.sounds.done.play();
+					if (vibrateOn=="true") navigator.notification.vibrate(1000);
+				}
+				if (r == 8) {
+					if (speechOn == "true") window.plugins.tts.speak("Get ready for "+t.exe[t.current].name, function() {}, function() {});
+				}
+				
 				$("#ball" + (t.current - 1)).addClass("ball-fade");
 				$("body, #timer, #image").removeClass("go").addClass("rest");
 				$("#timer .nums").text(r);
@@ -49,6 +92,8 @@ $(document).ready(function() {
 				$("#picture").show();
 				$("#next").fadeOut();
 				$("body, #timer, #image").removeClass("rest").addClass("go");
+				//if (vibrateOn=="true")  navigator.notification.vibrate(1000);
+				
 				ex()
 			}
 		}, 1e3);
@@ -123,12 +168,13 @@ $(document).ready(function() {
 		$(this).val() > 1 ? t.duration = $(this).val() * 60 : t.duration = 420;
 		ga("send", "event", "general", "change", "duration to", t.duration)
 	});
-	$(".start").click(function() {
+	if (!loadedJS) $(".start").click(function() {
 		var e, n, r;
 		t.sounds.init();
 		ga("send", "event", "general", "click", "button", !0);
 		ga("send", "event", "general", "select", "duration", t.duration);
 		e = 3;
+		$('.options').hide();
 		$(".title-elements").slideUp();
 		n = $(this).parents(".start-button");
 		n.text(e);
@@ -145,7 +191,10 @@ $(document).ready(function() {
 			ex()
 		}, 3e3);
 		return !1
-	})
+	});
+	loadedJS = true;
+	
 });
+}
 
 }, false);
