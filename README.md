@@ -21,7 +21,7 @@ New features;
 -----
 
 ~~I am using Adobe Phonegap Build to build this app; you can try building it  yourself there as well.~~
-I use Eclipse to build now because some of the plugin (TTS) and sleep prevention. 
+I use Eclipse to build now because of the plugin (TTS) and sleep prevention. 
 
 TODO: 
 
