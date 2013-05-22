@@ -3,6 +3,14 @@ function ga() {}
 document.addEventListener("deviceready",function() {
 if (loadedJS) return;
 
+// on device suspend
+var devicePaused = false; 
+document.addEventListener("pause", function() {
+	window.location.reload(true);
+
+}, false);
+
+
    window.plugins.tts.startup(speechStart, function(){});
    function speechStart() {
       
@@ -20,10 +28,13 @@ $(document).ready(function() {
 	var soundsOn = (storage.getItem("sounds"))?(storage.getItem("sounds")=="true"?"true":"false"):"true"; 
 	var vibrateOn = (storage.getItem("vibrate"))?(storage.getItem("vibrate")=="true"?"true":"false"):"true"; 
 	var speechOn = (storage.getItem("speech"))?(storage.getItem("speech")=="true"?"true":"false"):"true"; 
+	var pain = (storage.getItem("pain"))?storage.getItem("pain"):10; 
 	
 	$('#sounds').attr('checked', soundsOn=="true");
 	$('#vibrate').attr('checked', vibrateOn=="true");
 	$('#speech').attr('checked', speechOn=="true");
+	$('#pain1').attr('checked', pain == 10); 
+	$('#pain2').attr('checked', pain == 5); 
 	
 	$('#sounds').change(function() {
 		soundsOn = $(this).is(":checked")?"true":"false";
@@ -37,20 +48,38 @@ $(document).ready(function() {
 		speechOn = $(this).is(":checked")?"true":"false";
 		storage.setItem("speech", speechOn);
 	});	
+	
+	$('#pain1').change(function() {
+		if ($(this).is(":checked")) {
+			pain = 10; 
+			e.rest.time = pain;
+			t.rest.time = pain;
+			$('#pain2').attr('checked', false);
+			storage.setItem("pain", pain); 
+		}
+	});
+	$('#pain2').change(function() {
+	
+		if ($(this).is(":checked")) {
+		
+			pain = 5; 
+			e.rest.time = pain;
+			t.rest.time = pain;
+			$('#pain1').attr('checked', false);
+			storage.setItem("pain", pain); 
+		}
+		
+	});
+	
+	
 	function ex() {
 		var e, n, r, i, oe;
 		if (soundsOn=="true") t.sounds.tick.play();
-		
 		if (t.current + 1 > t.exe.length) {
-			if ($("#timer").css("font-size")=="200px") $("#timer").css("font-size", "100px");
-			$("#timer").text("DONE");
-			if (speechOn == "true") window.plugins.tts.speak("You are done! Congratulations!", function() {}, function() {});
-			$("#picture").hide();
-			$("#activity").hide();
-			$("#balls").hide();
-			return !0
+			return !0;
 		}
-		oe = e = Math.round((t.duration - t.rest.time * t.exe.length) / t.exe.length);
+
+		oe = e = 30; //Math.round((t.duration - t.rest.time * t.exe.length) / t.exe.length);
 		n = Math.round(e / t.exe[t.current].split);
 		r = t.rest.time;
 		$("#picture").attr("src", "images/" + (t.current + 1) + ".png");
@@ -70,21 +99,34 @@ $(document).ready(function() {
 					if (vibrateOn=="true") navigator.notification.vibrate(1000);
 				}
 				$("#timer .nums").text(e)
-			} else if (r > 1) {
+			} else if (r > 0) {
+					if (t.current + 1 > t.exe.length) {
+						clearInterval(i);
+						if ($("#timer").css("font-size")=="200px") $("#timer").css("font-size", "100px");
+						$("#timer").text("DONE");
+						if (speechOn == "true") window.plugins.tts.speak("You are done! Congratulations!", function() {}, function() {});
+						$("#picture").hide();
+						$("#activity").hide();
+						$("#balls").hide();
+						return !0
+					}
+				$("#timer .nums").text(r);
 				r--;
-				if (r == 9) {
+				if (r == t.rest.time-1) {
 					if (soundsOn=="true") t.sounds.done.play();
 					if (vibrateOn=="true") navigator.notification.vibrate(1000);
+					$("#picture").attr("src", "images/" + (t.current+1) + ".png");
+					$("#picture").show();
 				}
-				if (r == 8) {
+				if (r == t.rest.time-2) {
 					if (speechOn == "true") window.plugins.tts.speak("Get ready for "+t.exe[t.current].name, function() {}, function() {});
 				}
 				
 				$("#ball" + (t.current - 1)).addClass("ball-fade");
 				$("body, #timer, #image").removeClass("go").addClass("rest");
-				$("#timer .nums").text(r);
+				//$("#timer .nums").text(r);
 				$("#activity").text(t.rest.name);
-				$("#picture").hide();
+				
 				$("#next").text("(" + t.exe[t.current].name + ")").fadeIn()
 			} else {
 				clearInterval(i);
@@ -102,10 +144,10 @@ $(document).ready(function() {
 	var e, t;
 	$(".app").hide().removeClass("hidden");
 	e = {
-		duration: 480,
+		duration: 420,
 		rest: {
 			name: "Rest",
-			time: 10
+			time: pain
 		}
 	};
 	t = {
@@ -173,23 +215,36 @@ $(document).ready(function() {
 		t.sounds.init();
 		ga("send", "event", "general", "click", "button", !0);
 		ga("send", "event", "general", "select", "duration", t.duration);
-		e = 3;
+		e = t.rest.time;
 		$('.options').hide();
+		$('.pain').hide();
 		$(".title-elements").slideUp();
 		n = $(this).parents(".start-button");
-		n.text(e);
+		//$("#firstexpic").attr("src", "images/" + (t.current+1) + ".png");
+		
+		//n.text(e);
 		r = window.setInterval(function() {
-			if (e > 0) {
-				e--;
-				n.text(e)
-			} else clearInterval(e)
+			
+			n.text(e)
+			e--;
+			if (e==t.rest.time-1) {
+				if (speechOn == "true") window.plugins.tts.speak("Get ready for "+t.exe[t.current].name, function() {}, function() {});
+				$("#firstex").show();
+			} 
+			if (e >= 0) {
+				
+			} else {
+				$("#firstex").hide();
+				clearInterval(r)
+				n.hide();
+				$(".app").fadeIn(500);
+				for (i in t.exe) $("#balls.row-fluid").append("<div class='span1 ball' id='ball" + i + "'><img src='images/ball.png' /></div>");
+				ex()
+			}
 		}, 1e3);
-		window.setTimeout(function() {
-			n.hide();
-			$(".app").fadeIn(500);
-			for (i in t.exe) $("#balls.row-fluid").append("<div class='span1 ball' id='ball" + i + "'><img src='images/ball.png' /></div>");
-			ex()
-		}, 3e3);
+		/*window.setTimeout(function() {
+			
+		}, 1000*(t.rest.time));*/
 		return !1
 	});
 	loadedJS = true;
