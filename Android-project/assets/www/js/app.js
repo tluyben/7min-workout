@@ -71,21 +71,48 @@ $(document).ready(function() {
 		
 	});
 	
+
 	
+	var running = false; 
+	var bound = false; 
 	function ex() {
+		running = true; 
 		var e, n, r, i, oe;
 		if (soundsOn=="true") t.sounds.tick.play();
 		if (t.current + 1 > t.exe.length) {
 			return !0;
 		}
+		//if (!bound) {
 
+		//	bound = true; 		
+		//}
+				
 		oe = e = 30; //Math.round((t.duration - t.rest.time * t.exe.length) / t.exe.length);
 		n = Math.round(e / t.exe[t.current].split);
 		r = t.rest.time;
 		$("#picture").attr("src", "images/" + (t.current + 1) + ".png");
 		$("#timer .nums").text(e);
-		$("#activity").text(t.exe[t.current].name);
+		$("#activity").text(t.exe[t.current].name+" - "+(t.current+1)+"/"+t.exe.length);
+		bound = false;
 		i = window.setInterval(function() {
+			if (!bound) {
+				bound = true;
+				//console.log("current: "+t.current);
+				$("#goprev").unbind("click");
+				$("#gonext").unbind("click");
+				$("#goprev").click(function () {
+					//console.log("currentp: "+t.current);
+					t.current-=2; 
+					if (t.current < 0) t.current = 0;
+					e=0;
+				}); 
+				
+				$("#gonext").click(function () {
+					if (e<=0) r = 0; 
+					e=0;
+				}); 		
+			}
+			
 			if (e > 1) {
 				if (oe == e) {
 					if (speechOn == "true") window.plugins.tts.speak("You are doing "+t.exe[t.current-1].name, function() {}, function() {});
@@ -100,14 +127,18 @@ $(document).ready(function() {
 				}
 				$("#timer .nums").text(e)
 			} else if (r > 0) {
+					$(".pauseblock").hide();
+					$("#goprev").unbind("click");
+					$("#gonext").unbind("click");
 					if (t.current + 1 > t.exe.length) {
 						clearInterval(i);
 						if ($("#timer").css("font-size")=="200px") $("#timer").css("font-size", "100px");
 						$("#timer").text("DONE");
+						
 						if (speechOn == "true") window.plugins.tts.speak("You are done! Congratulations!", function() {}, function() {});
 						$("#picture").hide();
 						$("#activity").hide();
-						$("#balls").hide();
+						//$("#balls").hide();
 						return !0
 					}
 				$("#timer .nums").text(r);
@@ -119,13 +150,14 @@ $(document).ready(function() {
 					$("#picture").show();
 				}
 				if (r == t.rest.time-2) {
-					if (speechOn == "true") window.plugins.tts.speak("Get ready for "+t.exe[t.current].name, function() {}, function() {});
+					if (speechOn == "true") window.plugins.tts.speak("Get ready for "+t.exe[t.current].name+", Exercise number "+(t.current+1)+" of "+t.exe.length, function() {}, function() {});
+
 				}
 				
 				$("#ball" + (t.current - 1)).addClass("ball-fade");
 				$("body, #timer, #image").removeClass("go").addClass("rest");
 				//$("#timer .nums").text(r);
-				$("#activity").text(t.rest.name);
+				$("#activity").text(t.rest.name+" - "+(t.current+1)+"/"+t.exe.length);
 				
 				$("#next").text("(" + t.exe[t.current].name + ")").fadeIn()
 			} else {
@@ -133,6 +165,7 @@ $(document).ready(function() {
 				ga("send", "section", "sections", "complete", "section", t.current);
 				$("#picture").show();
 				$("#next").fadeOut();
+				$(".pauseblock").show();
 				$("body, #timer, #image").removeClass("rest").addClass("go");
 				//if (vibrateOn=="true")  navigator.notification.vibrate(1000);
 				
@@ -211,11 +244,12 @@ $(document).ready(function() {
 		ga("send", "event", "general", "change", "duration to", t.duration)
 	});
 	if (!loadedJS) $(".start").click(function() {
-		var e, n, r;
+		var e, n, r, oe;
 		t.sounds.init();
 		ga("send", "event", "general", "click", "button", !0);
 		ga("send", "event", "general", "select", "duration", t.duration);
-		e = t.rest.time;
+		oe = e = 5;
+		//e = t.rest.time;
 		$('.options').hide();
 		$('.pain').hide();
 		$(".title-elements").slideUp();
@@ -227,8 +261,8 @@ $(document).ready(function() {
 			
 			n.text(e)
 			e--;
-			if (e==t.rest.time-1) {
-				if (speechOn == "true") window.plugins.tts.speak("Get ready for "+t.exe[t.current].name, function() {}, function() {});
+			if (e==oe-1) {
+				if (speechOn == "true") window.plugins.tts.speak("Get ready for "+t.exe[t.current].name+", Exercise number "+(t.current+1)+" of "+t.exe.length, function() {}, function() {});
 				$("#firstex").show();
 			} 
 			if (e >= 0) {
@@ -238,7 +272,11 @@ $(document).ready(function() {
 				clearInterval(r)
 				n.hide();
 				$(".app").fadeIn(500);
-				for (i in t.exe) $("#balls.row-fluid").append("<div class='span1 ball' id='ball" + i + "'><img src='images/ball.png' /></div>");
+				//for (i in t.exe) $("#balls.row-fluid").append("<div class='span1 ball' id='ball" + i + "'><img src='images/ball.png' /></div>");
+				$("#gopause").click(function () {
+					alert("Paused! Click OK to continue.");
+				}); 
+
 				ex()
 			}
 		}, 1e3);

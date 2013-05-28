@@ -46,6 +46,7 @@ public class TTS extends CordovaPlugin implements OnInitListener, OnUtteranceCom
 
         try {
             if (action.equals("speak")) {
+            	if (mTts == null) return false;
                 String text = args.getString(0);
                 if (isReady()) {
                     HashMap<String, String> map = null;
@@ -185,6 +186,7 @@ public class TTS extends CordovaPlugin implements OnInitListener, OnUtteranceCom
      * @param status
      */
     public void onInit(int status) {
+    	if (mTts == null) return; 
         if (status == TextToSpeech.SUCCESS) {
             state = TTS.STARTED;
             PluginResult result = new PluginResult(PluginResult.Status.OK, TTS.STARTED);
