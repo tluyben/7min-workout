@@ -148,7 +148,8 @@ body.rest {
 #activity {
   font-size: 80px;
   font-weight: 800;
-  line-height: 140px;
+  line-height: 500px;
+  margin-top: 0px;
   text-align: center;
   color: #48bdc6;
   opacity: 1;
@@ -164,6 +165,8 @@ body.rest {
   opacity: .4;
 }
 .pauseblock {
+	margin-left: 10px; 
+	margin-right: 10px;
 	width: 100%;
 }
 .pause {
@@ -189,7 +192,9 @@ body.rest {
   color: black;
   text-decoration: none;
 }
-@media only screen and (min-device-width : 480px) and (max-device-width : 800px) {
+
+
+/*@media only screen and (min-device-width : 480px) and (max-device-width : 799px) {*/
     .start-screen h1 { font-size: 70px; line-height: 90px; }
     .start-screen h2 { font-size: 20px; }
     .start-screen .start-button { font-size:40px; line-height: 80px; }
@@ -197,4 +202,13 @@ body.rest {
     #activity {font-size:30px; line-height:70px; }
     #next {font-size: 30px; }
     #firstex {top:100px; font-size:30px; line-height:70px; }
+/*}*/
+
+@media only screen and (min-device-height : 1024px) {
+	#activity {margin-top: 200px}
 }
+
+@media only screen and (min-device-width : 800px) {
+	#timer {font-size: 400px; }
+}
+
